@@ -4,8 +4,25 @@
         <meta charset="UTF-8">
         <title>{% block title %}Welcome!{% endblock %}</title>
         {% block stylesheets %}{% endblock %}
+        <script type="text/javascript" src="/jquery.min.js"></script>
+        <script type="text/javascript" src="/js.datatable/bootstrap-table.js"></script>
+        <script type="text/javascript" src="/js.datatable/Chart.bundle.js"></script>
+        <script type="text/javascript" src="/js.datatable/moment.js"></script>
+        <script type="text/javascript" src="/js.datatable/datatable.js"></script>
+        <link rel="stylesheet" href="/css.datatable/bootstrap-table.css">
+        <link rel="stylesheet" href="/css.datatable/datatable.css">
+        <link rel="stylesheet" href="/css.min/datatable.min.css">
     </head>
     <body>
+    {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+    <div>Page name: {{ page_name ?? '' }} | {{ app.user.name ?? '' }} {{ app.user.surname ?? '' }} | <a href="/logout">Logout</a></div>
+
+    <br>
+    <ul>
+        <li><a href="/product/new">New Product</a> </li>
+        <li><a href="/sales">Sales</a> </li>
+    </ul>
+    {% endif %}
         {% block body %}{% endblock %}
         {% block javascripts %}{% endblock %}
     </body>

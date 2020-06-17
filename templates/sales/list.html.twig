@@ -1,0 +1,51 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello SalesController!{% endblock %}
+
+{% block body %}
+<style>
+    .example-wrapper { margin: 1em auto; font: 18px/1.5 sans-serif; }
+    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+</style>
+
+<div class="example-wrapper">
+
+
+    <table id="dynamic-table-1" class="table datatable"
+           data-id-field="code"
+           data-sort-order="desc"
+           data-show-chart="false"
+           data-pagination="false"
+           data-show-pagination-switch="false">
+        <thead>
+
+            {% for th in tableData['column'] %}
+
+                {% if th.subHeaders is defined %}
+                    {% for thSub in th.subHeaders %}
+                        <th data-field="{{ thSub.header|e }}" data-sortable="true">{{ thSub.header|e }}</th>
+                    {% endfor %}
+                {% else %}
+                    <th data-field="{{ th.header|e }}" data-sortable="true" {% if th.subHeaders is defined %}colspan="4" rowspan="2"{% endif %}>{{ th.header|e }}</th>
+                {% endif %}
+            {% endfor %}
+
+        </thead>
+        <tbody>
+        {% for row in tableData['data'] %}
+            <tr>
+                <td>{{ row.productID }}</td>
+                <td>{{ row.productName }}</td>
+                <td>{{ row.salesQ1}}</td>
+                <td>{{ row.salesQ2}}</td>
+                <td>{{ row.salesQ3}}</td>
+                <td>{{ row.salesQ4}}</td>
+                <td>{{ row.salesQ1 + row.salesQ2 + row.salesQ3 + row.salesQ4}}</td>
+            </tr>
+        {% endfor %}
+
+        </tbody>
+    </table>
+
+</div>
+{% endblock %}
